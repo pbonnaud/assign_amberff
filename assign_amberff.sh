@@ -1,30 +1,46 @@
 #!/bin/bash -f
 
-### /////////////////////////////////////////////////////////////////////////////////
-### //                                                                             //
-### //  Copyright (2022) Patrick A. Bonnaud                                        //
-### //                                                                             //
-### //  This file is part of assign_amberff.sh                                     //
-### //                                                                             //
-### //  assign_amberff.sh is free software; you can redistribute it and/or modify  //
-### //  it under the terms of the GNU General Public License as published by       //
-### //  the Free Software Foundation; either version 2 of the License, or          //
-### //  (at your option) any later version.                                        //
-### //                                                                             //
-### //  assign_amberff.sh is distributed in the hope that it will be useful,       //
-### //  but WITHOUT ANY WARRANTY; without even the implied warranty of             //
-### //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              //
-### //  GNU General Public License for more details.                               //
-### //                                                                             //
-### //  You should have received a copy of the GNU General Public License          //
-### //  along with this program.  If not, see <http://www.gnu.org/licenses/>.      //
-### //                                                                             //
-### /////////////////////////////////////////////////////////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////////////////////////
+# //                                                                                               //
+# //  Copyright (2022) Patrick A. Bonnaud                                                          //
+# //                                                                                               //
+# //  This file is part of assign_amberff.sh                                                       //
+# //                                                                                               //
+# //  assign_amberff.sh is free software; you can redistribute it and/or modify                    //
+# //  it under the terms of the GNU General Public License as published by                         //
+# //  the Free Software Foundation; either version 2 of the License, or                            //
+# //  (at your option) any later version.                                                          //
+# //                                                                                               //
+# //  assign_amberff.sh is distributed in the hope that it will be useful,                         //
+# //  but WITHOUT ANY WARRANTY; without even the implied warranty of                               //
+# //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                                //
+# //  GNU General Public License for more details.                                                 //
+# //                                                                                               //
+# //  You should have received a copy of the GNU General Public License                            //
+# //  along with this program.  If not, see <http://www.gnu.org/licenses/>.                        //
+# //                                                                                               //
+# ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 echo 'Name of the file : '$1
 echo
 
-### Set parameters for acdoctor 
+### Check that the name in input does not have the mol2 extension ##################################
+
+SUB='.mol2'
+
+if [[ "$1" == *"$SUB"* ]]; then
+
+  echo 'Only the name of the file is needed as an input'
+  echo
+  echo 'Please remove ".mol2" from the file name in input'
+  echo
+  echo 'End of the script'
+
+  exit 0
+
+fi
+
+### Set parameters for acdoctor #################################################################### 
 
 ### antechamber -dr no
 
@@ -32,32 +48,32 @@ echo
 
 ### Set parameters for charge assignment ###########################################################
 
-###echo -n 'Please give the net charge in [e] of the current molecule and press [ENTER] : '
+echo -n 'Please give the net charge in [e] of the current molecule and press [ENTER] : '
 
-net_molecular_charge=0
+###net_molecular_charge=0
 
-###read net_molecular_charge
+read net_molecular_charge
 
-###echo 'The net charge of the molecule is '$net_molecular_charge' [e]'
-###echo
-###echo
-###echo 'Availabe charge methods in antechamber : '
-###echo
-###echo 'charge method     abbre.  index | charge method      abbre. index'
-###echo '-----------------------------------------------------------------'  
-###echo 'RESP               resp     1  |  AM1-BCC            bcc     2   '
-###echo 'CM2                cm2      3  |  ESP (Kollman)      esp     4   '
-###echo 'Mulliken           mul      5  |  Gasteiger          gas     6   '
-###echo 'Read in Charge     rc       7  |  Write out charge   wc      8   '
-###echo '-----------------------------------------------------------------'
-###echo
-###echo 'Source: http://ambermd.org/antechamber/ac.html#am1bcc'
-###echo
-###echo -n 'Please choose the charge method (abbre.) for assigning partial charges and press [ENTER] : '
+echo 'The net charge of the molecule is '$net_molecular_charge' [e]'
+echo
+echo
+echo 'Availabe charge methods in antechamber : '
+echo
+echo 'charge method     abbre.  index | charge method      abbre. index'
+echo '-----------------------------------------------------------------'  
+echo 'RESP               resp     1  |  AM1-BCC            bcc     2   '
+echo 'CM2                cm2      3  |  ESP (Kollman)      esp     4   '
+echo 'Mulliken           mul      5  |  Gasteiger          gas     6   '
+echo 'Read in Charge     rc       7  |  Write out charge   wc      8   '
+echo '-----------------------------------------------------------------'
+echo
+echo 'Source: http://ambermd.org/antechamber/ac.html#am1bcc'
+echo
+echo -n 'Please choose the charge method (abbre.) for assigning partial charges and press [ENTER] : '
 
-charge_method='mul'
+###charge_method='mul'
 
-###read charge_method
+read charge_method
 
 if [ $charge_method == 'gas' ]
 then
