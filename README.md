@@ -12,3 +12,5 @@ A script that uses ambertools software to assign the AMBER force field to a mole
 2. Run the script with the following command:
 
 $ ./assign_amberff.sh name_of_the_molecular_model
+
+Here, the full name of the file containing coordinates is name_of_the_molecular_model.mol2
